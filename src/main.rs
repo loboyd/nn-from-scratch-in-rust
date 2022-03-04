@@ -9,27 +9,27 @@ use crate::perceptron::Perceptron;
 use crate::utils::RandomNumberGenerator;
 
 fn main() {
-    let data = get_data();
-    for x in data.iter().take(6) {
-        println!("\n{}", x);
-    }
+    // get the MNIST images
+    let training_images = get_data();
 
-    //let mut rng = RandomNumberGenerator::with_seed(98.);
+    //for image in training_images.iter().take(6) {
+    //    println!("\n{}", image);
+    //}
 
-    //let layer1 = Matrix::random(3, 16, &mut rng);
-    //let layer2 = Matrix::random(16, 1, &mut rng);
+    let mut rng = RandomNumberGenerator::with_seed(98.);
 
-    //let perceptron = Perceptron {
-    //    n_inputs: 3,
-    //    n_outputs: 1,
-    //    layers: vec![layer1.clone(), layer2.clone()],
-    //};
+    // build layers
+    let layer1 = Matrix::random(28*28, 16, &mut rng); // read the 28*28 pixels of the image
+    let layer2 = Matrix::random(16, 10, &mut rng); // give the output as a choice of ten
 
-    //println!("layer 1:\n{}", layer1);
-    //println!();
-    //println!("layer 2:\n{}", layer2);
+    // build net
+    let perceptron = Perceptron {
+        n_inputs: 28*28,
+        n_outputs: 10,
+        layers: vec![layer1.clone(), layer2.clone()],
+    };
 
-    //let output = perceptron.feed_forward(vec![2., 3., 4.]);
-
-    //println!("{:?}", output);
+    // pass first training image through net
+    let output = perceptron.feed_forward(training_images[0].data.clone());
+    println!("{:?}", output);
 }
