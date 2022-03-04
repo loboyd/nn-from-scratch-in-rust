@@ -1,6 +1,11 @@
 make a neural net in Rust
 
-Can we build a neural network from scratch to do MNIST (or maybe something else)?
+* Can we build a neural network from scratch to do MNIST (or maybe something else, like 2048)?
+
+# ze rules of ze game
+* no dependencies
+* go from memory
+* i guess just perform better than random?
 
 # TODO
 - [x] implement a randomized initializer (seeded)
