@@ -12,6 +12,11 @@ make a neural net in Rust
 - [ ] implement a cost function
 - [ ] implement backprop
 - [ ] build the infrastructure around passing MNIST data
+  - [ ] read in the training data
+    - [x] images
+    - [ ] labels
+    - [ ] pair these up
+  - [ ] chunk the data into mini-batches to feed to the net
 
 # How does neural net work (at least a multi-layer perceptron)?
 * feed forward
