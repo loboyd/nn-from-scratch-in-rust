@@ -5,7 +5,7 @@ use std::fs::File;
 use std::io::Read;
 
 pub struct Image {
-    data: Vec<u8>,
+    pub data: Vec<f32>,
 }
 
 impl std::fmt::Display for Image {
@@ -17,7 +17,7 @@ impl std::fmt::Display for Image {
                 .chunks(28)
                 .map(|row| row
                     .iter()
-                    .map(|pixel| format!("{:4.2}", pixel))
+                    .map(|pixel| format!("{:3}", pixel))
                     .collect::<Vec<String>>()
                     .join(" "))
                 .collect::<Vec<String>>()
@@ -40,7 +40,8 @@ pub fn get_data() -> Vec<Image> {
     data
         .into_iter()
         .skip(13)
-        .collect::<Vec<u8>>()
+        .map(|x| x as f32)
+        .collect::<Vec<f32>>()
         .chunks(28*28)
         .map(|x| Image { data: x.to_vec(), })
         .collect::<Vec<Image>>()
