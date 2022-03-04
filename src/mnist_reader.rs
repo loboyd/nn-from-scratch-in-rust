@@ -8,6 +8,10 @@ pub struct Image {
     pub data: Vec<f32>,
 }
 
+pub struct Label {
+    pub data: Vec<f32>,
+}
+
 impl std::fmt::Display for Image {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         write!(
@@ -35,14 +39,35 @@ fn get_file_as_byte_vec(filename: &String) -> Vec<u8> {
     buffer
 }
 
-pub fn get_data() -> Vec<Image> {
-    let data = get_file_as_byte_vec(&"../mnist/train-images-idx3-ubyte".to_string());
-    data
+pub fn get_data() -> Vec<(Image, Label)> {
+    let image_data = get_file_as_byte_vec(&"../mnist/train-images-idx3-ubyte".to_string());
+    let images = image_data
         .into_iter()
-        .skip(13)
+        .skip(16)
         .map(|x| x as f32)
         .collect::<Vec<f32>>()
         .chunks(28*28)
         .map(|x| Image { data: x.to_vec(), })
-        .collect::<Vec<Image>>()
+        .collect::<Vec<Image>>();
+
+    let label_data = get_file_as_byte_vec(&"../mnist/train-labels-idx1-ubyte".to_string());
+    let labels = label_data
+        .into_iter()
+        .skip(8)
+        .map(|x| Label { data: match x {
+            0 => vec!(1., 0., 0., 0., 0., 0., 0., 0., 0., 0.),
+            1 => vec!(0., 1., 0., 0., 0., 0., 0., 0., 0., 0.),
+            2 => vec!(0., 0., 1., 0., 0., 0., 0., 0., 0., 0.),
+            3 => vec!(0., 0., 0., 1., 0., 0., 0., 0., 0., 0.),
+            4 => vec!(0., 0., 0., 0., 1., 0., 0., 0., 0., 0.),
+            5 => vec!(0., 0., 0., 0., 0., 1., 0., 0., 0., 0.),
+            6 => vec!(0., 0., 0., 0., 0., 0., 1., 0., 0., 0.),
+            7 => vec!(0., 0., 0., 0., 0., 0., 0., 1., 0., 0.),
+            8 => vec!(0., 0., 0., 0., 0., 0., 0., 0., 1., 0.),
+            9 => vec!(0., 0., 0., 0., 0., 0., 0., 0., 0., 1.),
+            _ => panic!(),
+        }})
+        .collect::<Vec<Label>>();
+
+    images.into_iter().zip(labels).collect::<Vec<(Image, Label)>>()
 }

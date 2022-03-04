@@ -14,7 +14,7 @@ make a neural net in Rust
 - [ ] build the infrastructure around passing MNIST data
   - [ ] read in the training data
     - [x] images
-    - [ ] labels
+    - [x] labels
     - [ ] pair these up
   - [ ] chunk the data into mini-batches to feed to the net
 

@@ -9,11 +9,11 @@ use crate::perceptron::Perceptron;
 use crate::utils::RandomNumberGenerator;
 
 fn main() {
-    // get the MNIST images
-    let training_images = get_data();
+    // get the MNIST training data
+    let training_data = get_data();
 
-    //for image in training_images.iter().take(6) {
-    //    println!("\n{}", image);
+    //for pair in training_data.iter().take(6) {
+    //    println!("\n{}", pair.0);
     //}
 
     let mut rng = RandomNumberGenerator::with_seed(98.);
@@ -30,6 +30,7 @@ fn main() {
     };
 
     // pass first training image through net
-    let output = perceptron.feed_forward(training_images[0].data.clone());
-    println!("{:?}", output);
+    let output = perceptron.feed_forward(training_data[0].0.data.clone());
+    println!("computed: {:?}", output);
+    println!("expected: {:?}", training_data[0].1.data);
 }
