@@ -5,6 +5,7 @@ make a neural net in Rust
 # ze rules of ze game
 * no dependencies
 * go from memory
+  * EDIT: I thought I could rederive backprop from memory. not gonna happen
 * i guess just perform better than random?
 
 # TODO
