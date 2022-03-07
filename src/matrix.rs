@@ -1,7 +1,7 @@
 use crate::utils::sigmoid_singleton;
 use crate::utils::RandomNumberGenerator;
 
-#[derive(Clone)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct Matrix {
     pub n_rows: usize,
     pub n_cols: usize,
@@ -39,6 +39,19 @@ impl Matrix {
         }
 
         new
+    }
+
+    // TODO: Maybe eventually create "virtual" TransposedMatrix type which has a reference to the
+    //       data and just re-implements the multiplication function
+    pub fn transpose(self) -> Self {
+        let mut output = Self::zeros(self.n_cols, self.n_rows);
+        for i in 0..self.n_cols {
+            for j in 0..self.n_rows {
+                output.data[i][j] += self.data[j][i];
+            }
+        }
+
+        output
     }
 }
 
@@ -90,4 +103,28 @@ impl std::fmt::Display for Matrix {
                 .join("\n")
         )
     }
+}
+
+#[test]
+fn matrix_transpose_check() {
+    let matrix = Matrix {
+        n_rows: 2,
+        n_cols: 3,
+        data: vec!(
+            vec!(1., 2., 3.),
+            vec!(4., 5., 6.),
+        ),
+    };
+
+    let matrix_transposed = Matrix {
+        n_rows: 3,
+        n_cols: 2,
+        data: vec!(
+            vec!(1., 4.),
+            vec!(2., 5.),
+            vec!(3., 6.),
+        ),
+    };
+
+    assert_eq!(matrix.transpose(), matrix_transposed);
 }
