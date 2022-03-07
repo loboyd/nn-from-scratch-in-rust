@@ -2,6 +2,14 @@ pub fn sigmoid_singleton(x: f32) -> f32 {
     1. / (1. + 2.718281828_f32.powf(-x))
 }
 
+pub fn sigmoid_derivative(x: f32) -> f32 {
+    sigmoid_singleton(x) * (1. - sigmoid_singleton(x))
+}
+
+pub fn sigmoid_derivative_vector(x: Vec<f32>) -> Vec<f32> {
+    x.iter().map(|i| sigmoid_derivative(*i)).collect::<Vec<f32>>()
+}
+
 pub struct RandomNumberGenerator {
     current: f32,
 }
@@ -26,15 +34,30 @@ impl RandomNumberGenerator {
 
 #[test]
 fn sigmoid_singleton_0_0point5() {
-    assert!(sigmoid_singleton(0.) == 0.5);
+    assert_eq!(sigmoid_singleton(0.), 0.5);
 }
 
 #[test]
 fn sigmoid_singleton_999_1() {
-    assert!(sigmoid_singleton(999.) == 1.);
+    assert_eq!(sigmoid_singleton(999.), 1.);
 }
 
 #[test]
 fn sigmoid_singleton_neg999_0() {
-    assert!(sigmoid_singleton(-999.) == 0.);
+    assert_eq!(sigmoid_singleton(-999.), 0.);
+}
+
+#[test]
+fn sigmoid_derivative_0_0point5() {
+    assert_eq!(sigmoid_derivative(0.), 0.25);
+}
+
+#[test]
+fn sigmoid_derivative_999_0() {
+    assert_eq!(sigmoid_derivative(-999.), 0.);
+}
+
+#[test]
+fn sigmoid_derivative_neg999_0() {
+    assert_eq!(sigmoid_derivative(-999.), 0.);
 }
