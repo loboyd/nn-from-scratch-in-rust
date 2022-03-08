@@ -29,6 +29,7 @@ impl Matrix {
         }
     }
 
+    // TODO: Make this take a ref to self
     // TODO: Should this just mutate `self`?
     pub fn sigmoid(self) -> Self {
         let mut new = self.clone();

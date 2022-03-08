@@ -23,11 +23,11 @@ fn main() {
     let layer2 = Matrix::random(16, 10, &mut rng); // give the output as a choice of ten
 
     // build net
-    let perceptron = Perceptron {
-        n_inputs: 28*28,
-        n_outputs: 10,
-        layers: vec![layer1.clone(), layer2.clone()],
-    };
+    let perceptron = Perceptron::new(
+        28*28,
+        10,
+        vec![layer1.clone(), layer2.clone()],
+    );
 
     // pass first training image through net
     let output = perceptron.feed_forward(training_data[0].0.data.clone());

@@ -6,7 +6,7 @@ pub fn sigmoid_derivative(x: f32) -> f32 {
     sigmoid_singleton(x) * (1. - sigmoid_singleton(x))
 }
 
-pub fn sigmoid_derivative_vector(x: Vec<f32>) -> Vec<f32> {
+pub fn sigmoid_derivative_vector(x: &Vec<f32>) -> Vec<f32> {
     x.iter().map(|i| sigmoid_derivative(*i)).collect::<Vec<f32>>()
 }
 
