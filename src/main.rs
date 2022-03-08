@@ -30,7 +30,7 @@ fn main() {
     );
 
     // pass first training image through net
-    let output = perceptron.feed_forward(training_data[0].0.data.clone());
+    let output = perceptron.feed_forward(&training_data[0].0.data);
     println!("computed: {:?}", output);
     println!("expected: {:?}", training_data[0].1.data);
 }

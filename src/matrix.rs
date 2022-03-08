@@ -29,9 +29,8 @@ impl Matrix {
         }
     }
 
-    // TODO: Make this take a ref to self
     // TODO: Should this just mutate `self`?
-    pub fn sigmoid(self) -> Self {
+    pub fn sigmoid(&self) -> Self {
         let mut new = self.clone();
         for row in 0..new.n_rows {
             for col in 0..new.n_cols {

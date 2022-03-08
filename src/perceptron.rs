@@ -26,7 +26,7 @@ impl Perceptron {
         }
     }
 
-    pub fn feed_forward(&self, input: Vec<f32>) -> Vec<f32> {
+    pub fn feed_forward(&self, input: &Vec<f32>) -> Vec<f32> {
         let mut x = Matrix {
             n_rows: 1,
             n_cols: input.len(),
@@ -50,7 +50,7 @@ impl Perceptron {
 
         for layer in &self.layers {
             let weighted = &x * layer;
-            let activated = weighted.clone().sigmoid();
+            let activated = weighted.sigmoid();
 
             training_cache.0.push(LayerTrainingCache {
                 weighted_input: weighted.data[0].clone(),
@@ -65,7 +65,7 @@ impl Perceptron {
 
     // TODO: Abstract this out
     /// Compute the cost according a given training pair
-    fn cost(&self, input: Vec<f32>, label: Vec<f32>) -> f32 {
+    fn cost(&self, input: &Vec<f32>, label: Vec<f32>) -> f32 {
         let output = self.feed_forward(input);
 
         let diff_vector = label.iter().zip(output).map(|(x, y)| x - y).collect::<Vec<f32>>();
