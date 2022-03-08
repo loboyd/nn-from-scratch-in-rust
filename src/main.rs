@@ -26,7 +26,7 @@ fn main() {
     let perceptron = Perceptron::new(
         28*28,
         10,
-        vec![layer1.clone(), layer2.clone()],
+        vec![layer1, layer2],
     );
 
     // pass first training image through net

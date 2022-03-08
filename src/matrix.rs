@@ -29,16 +29,15 @@ impl Matrix {
         }
     }
 
-    // TODO: Should this just mutate `self`?
     pub fn sigmoid(&self) -> Self {
-        let mut new = self.clone();
-        for row in 0..new.n_rows {
-            for col in 0..new.n_cols {
-                new.data[row][col] = sigmoid_singleton(new.data[row][col]);
-            }
+        Self {
+            n_rows: self.n_rows,
+            n_cols: self.n_cols,
+            data: self.data
+                .iter()
+                .map(|row| row.iter().map(|col| sigmoid_singleton(*col)).collect::<Vec<f32>>())
+                .collect::<Vec<Vec<f32>>>(),
         }
-
-        new
     }
 
     // TODO: Maybe eventually create "virtual" TransposedMatrix type which has a reference to the
