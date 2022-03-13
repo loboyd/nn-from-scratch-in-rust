@@ -52,6 +52,15 @@ impl Matrix {
 
         output
     }
+
+    pub fn to_vec(&self) -> Option<Vec<f32>> {
+        match (self.n_rows, self.n_cols) {
+            (1, 1) => Some(vec![self.data[0][0]]),
+            (1, _) => Some(self.data[1].clone()),
+            (_, 1) => Some((0..self.n_rows).map(|ind| self.data[ind][0]).collect::<Vec<f32>>()),
+            _ => None,
+        }
+    }
 }
 
 impl std::ops::Mul for Matrix {
