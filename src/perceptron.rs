@@ -1,6 +1,7 @@
 use crate::matrix::Matrix;
 use crate::utils;
 
+#[derive(Debug)]
 pub struct Perceptron {
     pub n_inputs: usize,
     pub n_outputs: usize,
@@ -8,8 +9,10 @@ pub struct Perceptron {
     n_layers: usize,
 }
 
+#[derive(Debug)]
 struct TrainingCache(Vec<LayerTrainingCache>);
 
+#[derive(Debug)]
 struct LayerTrainingCache {
     weighted_input: Vec<f32>,
     activated_output: Vec<f32>,
