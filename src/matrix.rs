@@ -42,7 +42,7 @@ impl Matrix {
 
     // TODO: Maybe eventually create "virtual" TransposedMatrix type which has a reference to the
     //       data and just re-implements the multiplication function
-    pub fn transpose(self) -> Self {
+    pub fn transpose(&self) -> Self {
         let mut output = Self::zeros(self.n_cols, self.n_rows);
         for i in 0..self.n_cols {
             for j in 0..self.n_rows {
